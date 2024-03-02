@@ -1,11 +1,17 @@
 /* Group Project - Tic Tac Toe
+<<<<<<< HEAD
  * Bartec and Simon
  * 01/03/24
+=======
+ * Simon Hurney
+ * 29/02/24
+>>>>>>> main
  */
 
 #include <math.h>
 #include <stdio.h>
 
+<<<<<<< HEAD
 void printTiles(char tiles[][3], int ROW,
                 int COL); // function prototype to print array
 
@@ -32,3 +38,23 @@ void printTiles(char tiles[][3], int ROW, int COL) {
   printf("| %c | %c | %c |\n", tiles[2][0], tiles[2][1], tiles[2][2]);
   printf("+---+---+---+\n");
 }
+=======
+int main() {
+
+  char array[3][3];
+  int i, j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 3; j++) {
+      array[i][j] = 'x';
+    }
+  }
+  printf("| %c | %c | %c |\n", array[0][0], array[0][1], array[0][2]);
+  printf("+---+---+---+\n");
+  printf("| %c | %c | %c |\n", array[1][0], array[1][1], array[1][2]);
+  printf("+---+---+---+\n");
+  printf("| %c | %c | %c |\n", array[2][0], array[2][1], array[2][2]);
+
+  return 0;
+}
+>>>>>>> main
