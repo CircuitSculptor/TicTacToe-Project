@@ -4,26 +4,31 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(){
+int RandGen() {
 
-    RandGen();
+    int randValue = rand() % 11;
 
-    return 0;
+    if (randValue % 2 == 0) {
+        return 'X';
+    }
+    else {
+        return 'O';
+    }
 }
 
+int main() {
 
-int RandGen() {
-     
     srand(time(NULL));
 
-    char result = (rand() % 2 == 0) ? 'X' : 'O';
-    printf("Random option is: %c\n", result);
-
+    char result = RandGen();
+    for (int i = 0; i < 10; i++) {
+        printf("Random option is: %c\n", result);
+    }
     return 0;
 }
 
-int WinChecker() {
+//int WinChecker() {
 
 
-}
+//}
 
