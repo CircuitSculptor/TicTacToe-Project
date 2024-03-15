@@ -1,3 +1,7 @@
+/*
+ * Tic Tac Toe Project - C/C++ Programming
+ * Simon and Bartek
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,31 +19,59 @@ int main() {
   int cpuScore = 0;
   char tiles[ROW][COL]; // setting array to 3x3 grid using const ints
   int i, j;
+  int cPlay = 1;
+  char playAgain;
+  char userName[15];
   srand(time(NULL)); // seeded rand so cpu picks different selection each go
-  // populating the array with empty space
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 3; j++) {
-      tiles[i][j] = ' ';
+  do {
+    // populating the array with empty space
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < 3; j++) {
+        tiles[i][j] = ' ';
+      }
     }
-  }
-  for (i = 0; i < 9;
-       i++) { // loop to the max number of goes before someone must win
-    if (i % 2 == 0) {
-      userGo(tiles); // calling users go if num is not odd.
-    } else {
-      cpuGo(tiles);
-    }
-    // checking through array to see if passed option has won.
-    if (WinChecker(tiles, 'x')) {
-      printf("Player 'X' has won!\n");
-      userScore++;
-      break;
-    } else if (WinChecker(tiles, 'o')) {
-      printf("Player 'O' has won!\n");
+    printTiles(tiles);
+    for (i = 0; i < 9;
+         i++) { // loop to the max number of goes before someone must win
+      if (i % 2 == 0) {
+        userGo(tiles); // calling users go if num is not odd.
+      } else {
+        cpuGo(tiles);
+      }
 
+      // checking through array to see if passed option has won.
+      if (WinChecker(tiles, 'x')) {
+        printf("Player has won!\n");
+        userScore++;
+        break;
+      } else if (WinChecker(tiles, 'o')) {
+        printf("CPU has won!\n");
+        cpuScore++;
+        break;
+      }
+    }
+
+    printf("Would you like to play again y/n : \n");
+    scanf(" %c", &playAgain);
+    switch (playAgain) {
+
+    case 'y':
+      cPlay = 1;
+      break;
+
+    case 'n':
+      cPlay = 0;
+      printf("Thanks for playing! \n");
+      printf("Your score %d\n", userScore);
+      printf("Cpu score %d\n", cpuScore);
+      break;
+
+    default:
+      cPlay = 1;
       break;
     }
-  }
+
+  } while (cPlay != 0);
   return 0;
 }
 
@@ -71,6 +103,7 @@ int WinChecker(char tiles[3][3], char Option) {
       return 1;
     }
   }
+
   if ((tiles[0][0] == Option && tiles[1][1] == Option &&
        tiles[2][2] == Option) ||
       (tiles[0][2] == Option && tiles[1][1] == Option &&
@@ -83,28 +116,29 @@ int WinChecker(char tiles[3][3], char Option) {
 
 void userGo(char tiles[3][3]) {
   int row, column;
-
+  // setting row and column to user input
   printf("Please enter row selection (0-2): ");
   scanf("%d", &row);
   printf("\n");
   printf("Enter column (0-2): ");
   scanf("%d", &column);
   printf("\n");
+  // checking to see if space is free
   if (tiles[row][column] == ' ') {
     tiles[row][column] = 'x';
   } else {
+    // telling user space is taken, allowing them to go again
     printf("Space taken go again \n");
     userGo(tiles);
-  }
-  printTiles(tiles);
+  } // prints out display after choice
+  // printTiles(tiles);
 }
 
 void cpuGo(char tiles[3][3]) {
   int row, col;
-
-  row = rand() % 3;
+  row = rand() % 3; // random number between 0 - 3
   col = rand() % 3;
-
+  // making sure CPU does not select a filled element
   if (tiles[row][col] == 'x' || tiles[row][col] == 'o') {
     cpuGo(tiles);
 
